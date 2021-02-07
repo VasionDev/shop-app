@@ -18,7 +18,7 @@ const cartReducer = (state = initialState, action) => {
             }else {
                 newOrUpdatedCartItem = new CartItem(1, prodPrice, prodTitle, prodPrice)
             }
-            return {...state, items: {...state.items, [state.items[addedProduct.id]]: newOrUpdatedCartItem}, totalAmount: state.totalAmount + prodPrice}
+            return {...state, items: {...state.items, [addedProduct.id]: newOrUpdatedCartItem}, totalAmount: state.totalAmount + prodPrice}
     }
     return state
 }
