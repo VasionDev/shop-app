@@ -1,5 +1,7 @@
 import CartItem from "../../models/cart-item"
-import { ADD_TO_CART } from "../actions/cart"
+import { ADD_TO_CART, DELETE_FROM_CART } from "../actions/cart"
+import { ADD_ORDER } from "../actions/order"
+import { DELETE_PRODUCT } from "../actions/product"
 
 const initialState = {
     items: {},
@@ -19,6 +21,41 @@ const cartReducer = (state = initialState, action) => {
                 newOrUpdatedCartItem = new CartItem(1, prodPrice, prodTitle, prodPrice)
             }
             return {...state, items: {...state.items, [addedProduct.id]: newOrUpdatedCartItem}, totalAmount: state.totalAmount + prodPrice}
+
+        case DELETE_FROM_CART:
+            let updatedItems
+            const deletedProduct = state.items[action.productID]
+            const quantity = deletedProduct.quantity
+            const price = deletedProduct.productPrice
+            const title = deletedProduct.productTitle
+            const sum = deletedProduct.sum
+
+            if(quantity > 1) {
+                const updateItem = new CartItem( quantity - 1, price, title, sum - price )
+                updatedItems = {...state.items, [action.productID]: updateItem}
+            }else {
+                updatedItems = {...state.items}
+                delete updatedItems[action.productID]
+            }
+
+            return {...state, items: updatedItems, totalAmount: state.totalAmount - price }
+
+        case ADD_ORDER:
+            return initialState
+
+        case DELETE_PRODUCT:
+
+            if(!state.items[action.productID]) {
+                return state
+            }
+            const updatedProductItems = {...state.items}
+            const subtractionPrice = state.items[action.productID].sum
+            delete updatedProductItems[action.productID]
+            return {
+                ...state,
+                items: updatedProductItems,
+                totalAmount: state.totalAmount - subtractionPrice
+            }
     }
     return state
 }

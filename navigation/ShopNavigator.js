@@ -7,6 +7,7 @@ import { HeaderButtons, Item } from 'react-navigation-header-buttons'
 import ShopHeaderButton from '../components/shop/ShopHeaderButton'
 import OrderScreen from '../screens/shop/OrderScreen'
 import CartScreen from '../screens/shop/CartScreen'
+import UserProductsScreen from '../screens/user/UserProductsScreen'
 
 
 const Stack = createStackNavigator()
@@ -48,6 +49,21 @@ export const OrderNavigator = ({navigation}) => {
                 {title: 'Order Detail', headerLeft: ()=>(
                     <HeaderDrawerMenu navigation={navigation}/>
                 )}
+            }/>
+        </Stack.Navigator>
+    )
+}
+
+export const UserNavigation = ({navigation}) => {
+    return (
+        <Stack.Navigator screenOptions={defaultHeaderStyle}>
+            <Stack.Screen name="UserProducts" component={UserProductsScreen} options={
+                {
+                    title: 'User Products',
+                    headerLeft: () => (
+                        <HeaderDrawerMenu navigation={navigation}/>
+                    )
+                }
             }/>
         </Stack.Navigator>
     )

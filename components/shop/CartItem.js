@@ -3,16 +3,18 @@ import { View, StyleSheet, Text, TouchableOpacity } from 'react-native'
 import { Ionicons } from '@expo/vector-icons';
 import Colors from '../../constant/color'
 
-const CartItem = ({product}) => {
+const CartItem = ({product, onCartRemove, hideAction}) => {
     return (
         <View style={styles.itemContainer}>
             <Text style={styles.title}>{product.productTitle}</Text>
             <Text>{product.quantity} X ${product.productPrice.toFixed(2)}</Text>
             <View style={styles.action}>
                 <Text>${product.sum.toFixed(2)} </Text>
-                <TouchableOpacity activeOpacity={0.5}>
-                    <Ionicons name="trash" size={24} color={Colors.primary} />
-                </TouchableOpacity>
+                {!hideAction &&
+                    <TouchableOpacity activeOpacity={0.5} onPress={onCartRemove}>
+                        <Ionicons name="trash" size={24} color={Colors.primary} />
+                    </TouchableOpacity>
+                }
             </View>
         </View>
     )

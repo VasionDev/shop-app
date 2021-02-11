@@ -1,8 +1,7 @@
 import React from 'react'
-import { Button, Image, StyleSheet, Text, View } from 'react-native'
-import COLORS from '../../constant/color'
+import { Image, StyleSheet, Text, View } from 'react-native'
 
-const ProductItem = ({product, onProductDetail, onAddToCart}) => {
+const ProductItem = ({product, children}) => {
     return (
         <View style={styles.container}>
             <View style={styles.imageContainer}>
@@ -13,8 +12,7 @@ const ProductItem = ({product, onProductDetail, onAddToCart}) => {
                 <Text style={styles.price}>${product.price.toFixed(2)}</Text>
             </View>
             <View style={styles.actions}>
-                <Button color={COLORS.primary} title="Product Detail" onPress={onProductDetail}/>
-                <Button color={COLORS.primary} title="Add to Cart" onPress={onAddToCart}/>
+                {children}
             </View>
         </View>
     )
