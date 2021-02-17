@@ -5,7 +5,7 @@ import ProductItem from '../../components/shop/ProductItem'
 import COLORS from '../../constant/color'
 import { deleteProduct } from '../../store/actions/product'
 
-const UserProductsScreen = () => {
+const UserProductsScreen = ({navigation}) => {
 
     const userProducts = useSelector(state=> state.products.userProducts)
     const dispatch = useDispatch()
@@ -15,7 +15,7 @@ const UserProductsScreen = () => {
             data={userProducts}
             keyExtractor={item=>item.id}
             renderItem={itemData=> <ProductItem product={itemData.item}>
-                <Button color={COLORS.primary} title="Product Edit" onPress={()=> {}}/>
+                <Button color={COLORS.primary} title="Product Edit" onPress={()=> {navigation.navigate('EditProduct', {id: itemData.item.id})}}/>
                 <Button color={COLORS.primary} title="Delete" onPress={()=> {dispatch(deleteProduct(itemData.item.id))}}/> 
             </ProductItem>}
         />

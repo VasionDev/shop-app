@@ -8,6 +8,7 @@ import ShopHeaderButton from '../components/shop/ShopHeaderButton'
 import OrderScreen from '../screens/shop/OrderScreen'
 import CartScreen from '../screens/shop/CartScreen'
 import UserProductsScreen from '../screens/user/UserProductsScreen'
+import ProductEditScreen from '../screens/user/ProductEditScreen'
 
 
 const Stack = createStackNavigator()
@@ -62,11 +63,26 @@ export const UserNavigation = ({navigation}) => {
                     title: 'User Products',
                     headerLeft: () => (
                         <HeaderDrawerMenu navigation={navigation}/>
+                    ),
+                    headerRight: () => (
+                        <HeaderButtons HeaderButtonComponent={ShopHeaderButton}>
+                            <Item title="create" iconName="ios-create" onPress={() => navigation.navigate('EditProduct')}/>
+                        </HeaderButtons>
                     )
                 }
             }/>
+            <Stack.Screen name="EditProduct" component={ProductEditScreen} options={({route}) => (
+                {title: route.params ? 'Edit Product' : 'Add Product', 
+                    // headerRight: () => (
+                    //     <HeaderButtons HeaderButtonComponent={ShopHeaderButton}>
+                    //         <Item title="save" iconName="ios-checkmark" onPress={() => onProductAdded() }/>
+                    //     </HeaderButtons>
+                    // )
+                }
+            )}/>
         </Stack.Navigator>
     )
 }
+
 
 export default ShopNavigator
