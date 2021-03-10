@@ -9,7 +9,7 @@ import Colors from '../../constant/color'
 const OrderScreen = () => {
 
     const orders = useSelector(state=> state.orders.orders)
-    const [isLoading, setIsLoading] = useState(false)
+    const [isLoading, setIsLoading] = useState(true)
     const [error, setError] = useState()
     const dispatch = useDispatch()
 
@@ -42,6 +42,14 @@ const OrderScreen = () => {
         return (
             <View style={styles.centered}>
                 <Text>{error}</Text>
+            </View>
+        )
+    }
+
+    if(orders.length === 0){
+        return (
+            <View style={styles.centered}>
+                <Text>No order found</Text>
             </View>
         )
     }

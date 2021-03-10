@@ -2,8 +2,8 @@ import PRODUCTS from '../../data/dummy-data'
 import Product from '../../models/product'
 import { DELETE_PRODUCT, ADD_PRODUCT, UPDATE_PRODUCT, SET_PRODUCT } from '../actions/product'
 const initialState = {
-    availableProducts: PRODUCTS,
-    userProducts: PRODUCTS.filter(product => product.ownerId === 'u1')
+    availableProducts: [],
+    userProducts: []
 }
 
 const productReducer = (state = initialState, action) => {
@@ -13,7 +13,7 @@ const productReducer = (state = initialState, action) => {
             return {
                 ...state,
                 availableProducts: action.products,
-                userProducts: action.products.filter(product => product.ownerId === 'u1'),
+                userProducts: action.userProducts,
             }
 
         case DELETE_PRODUCT:
@@ -24,7 +24,7 @@ const productReducer = (state = initialState, action) => {
             }
 
         case ADD_PRODUCT:
-            const newProduct = new Product(action.productData.id, 'u1', action.productData.title, action.productData.imageUrl, action.productData.description, action.productData.price)
+            const newProduct = new Product(action.productData.id, action.productData.userID, action.productData.title, action.productData.imageUrl, action.productData.description, action.productData.price)
             return {
                 ...state,
                 availableProducts: state.availableProducts.concat(newProduct),

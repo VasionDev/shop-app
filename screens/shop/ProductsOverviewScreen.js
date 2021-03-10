@@ -10,7 +10,7 @@ import { featchProduct } from '../../store/actions/product'
 const ProductsOverviewScreen = ({navigation}) => {
 
     const products = useSelector(state=> state.products.availableProducts)
-    const [isloading, setIsLoading] = useState(false)
+    const [isloading, setIsLoading] = useState(true)
     const [isRefreshing, setIsRefreshing] = useState(false)
     const [error, setError] = useState()
     const dispatch = useDispatch()
@@ -24,22 +24,31 @@ const ProductsOverviewScreen = ({navigation}) => {
             setError(err.message)
         }
         setIsRefreshing(false)
-    }, [setIsLoading, setError, dispatch])
+    }, [setIsRefreshing, setError, dispatch])
 
-    useFocusEffect(
+    /*useFocusEffect(
         useCallback(()=> {
             setIsLoading(true)
             loadingProducts().then(()=>{
                 setIsLoading(false)
             })
         }, [loadingProducts])
-    )
+    )*/
 
-    /*useEffect(()=> {
-        console.log('effect')
-        loadingProducts()
+    /*useEffect(() => {
+        const unsubscribe = navigation.addListener('focus', ()=>{
+            loadingProducts()
+        })
+        return unsubscribe
+    }, [loadingProducts])*/
 
-    }, [dispatch, loadingProducts])*/
+    useEffect(()=> {
+        setIsLoading(true)
+        loadingProducts().then(()=>{
+            setIsLoading(false)
+        })
+
+    }, [dispatch, loadingProducts, setIsLoading])
 
     if(isloading) {
         return <View style={styles.centered}>

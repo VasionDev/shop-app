@@ -10,7 +10,6 @@ import CartScreen from '../screens/shop/CartScreen'
 import UserProductsScreen from '../screens/user/UserProductsScreen'
 import ProductEditScreen from '../screens/user/ProductEditScreen'
 
-
 const Stack = createStackNavigator()
 
 const defaultHeaderStyle = {
@@ -27,6 +26,7 @@ export const HeaderDrawerMenu = ({navigation}) => {
 }
 
 const ShopNavigator = ({navigation}) => {
+
     return (
         <Stack.Navigator screenOptions={defaultHeaderStyle}>
             <Stack.Screen name="ProductOverview" component={ProductsOverviewScreen} options={   {title: 'Product Overview', headerLeft: ()=>(

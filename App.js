@@ -5,14 +5,16 @@ import { createStore, combineReducers, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 import ReduxThunk from 'redux-thunk'
 import productReducer from './store/reduceres/productReducer'
-import ShopDrawerNavigator from './navigation/ShopDrawerNavigator';
 import cartReducer from './store/reduceres/cartReducer';
 import orderReducer from './store/reduceres/orderReducer';
+import ShopDrawerNavigator from './navigation/ShopDrawerNavigator';
+import authReducer from './store/reduceres/auth';
 
 const rootReducer = combineReducers({
   products: productReducer,
   cart: cartReducer,
-  orders: orderReducer
+  orders: orderReducer,
+  auth: authReducer
 })
 
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk))
